@@ -682,7 +682,7 @@ namespace WS.Theia.ExtremelyPrecise {
 #else
 			if(mode!=MidpointRounding.AwayFromZero&&mode!=MidpointRounding.ToEven) {
 				//TODO:メッセージ何とかする
-				throw new ArgumentException("",nameof(digits));
+				throw new ArgumentException(string.Empty,nameof(digits));
 			}
 			if(Rational.IsInfinity(value)||Rational.IsNaN(value)) {
 				return value;

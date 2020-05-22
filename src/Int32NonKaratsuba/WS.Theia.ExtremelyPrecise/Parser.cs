@@ -18,35 +18,22 @@ namespace WS.Theia.ExtremelyPrecise {
 
 			var intStyle = (int)style;
 
-			if(intStyle<0&&intStyle>=1024) {
+			if(intStyle<0||intStyle>=1024||(intStyle&0x200)>0) {
 				//TODO:メッセージ何とかする
-				throw new ArgumentException("",nameof(style));
+				//TODO:16進数からのフォーマットをするかしないか考える。（そもそもできるの？
+				throw new ArgumentException(string.Empty,nameof(style));
 			}
 
 			this.AllowLeadingWhite=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowTrailingWhite=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowLeadingSign=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowTrailingSign=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowParentheses=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowDecimalPoint=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowThousands=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowExponent=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowCurrencySymbol=(intStyle&0x1)>0;
-			intStyle>>=1;
-			this.AllowHexSpecifier=(intStyle&0x1)>0;
-
-			if(this.AllowHexSpecifier) {
-				//TODO:16進数からのフォーマットをするかしないか考える。（そもそもできるの？
-				throw new ArgumentException("",nameof(style));
-			}
+			this.AllowTrailingWhite=(intStyle&0x2)>0;
+			this.AllowLeadingSign=(intStyle&0x4)>0;
+			this.AllowTrailingSign=(intStyle&0x8)>0;
+			this.AllowParentheses=(intStyle&0x10)>0;
+			this.AllowDecimalPoint=(intStyle&0x20)>0;
+			this.AllowThousands=(intStyle&0x40)>0;
+			this.AllowExponent=(intStyle&0x80)>0;
+			this.AllowCurrencySymbol=(intStyle&0x100)>0;
+			//this.AllowHexSpecifier=(intStyle&0x200)>0;
 
 			this.CultureInfo=provider as CultureInfo??CultureInfo.CurrentCulture;
 			this.Nfi=NumberFormatInfo.GetInstance(provider);
@@ -60,7 +47,7 @@ namespace WS.Theia.ExtremelyPrecise {
 		private void Parse(string value) {
 
 			if(AllowThousands) {
-				value=value.Replace(this.Nfi.CurrencyGroupSeparator,"").Replace(this.Nfi.PercentGroupSeparator,"").Replace(this.Nfi.NumberGroupSeparator,"");
+				value=value.Replace(this.Nfi.CurrencyGroupSeparator,string.Empty).Replace(this.Nfi.PercentGroupSeparator,string.Empty).Replace(this.Nfi.NumberGroupSeparator,string.Empty);
 			}
 
 			value=this.ParceExponentPart(value);

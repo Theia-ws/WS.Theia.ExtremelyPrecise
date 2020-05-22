@@ -62,7 +62,7 @@ namespace WS.Theia.ExtremelyPrecise {
 			this.Infinity=false;
 			var workAreaArrayy = value.ToString("E29",CultureInfo.CurrentCulture).Split(new string[] { "E" },StringSplitOptions.None);
 			var nfi = NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture);
-			this.Numerator=BigUInteger.Parse(workAreaArrayy[0].Replace(nfi.NumberDecimalSeparator,"").Replace(nfi.NegativeSign,""));
+			this.Numerator=BigUInteger.Parse(workAreaArrayy[0].Replace(nfi.NumberDecimalSeparator,string.Empty).Replace(nfi.NegativeSign,string.Empty));
 			var exponential = int.Parse(workAreaArrayy[1],NumberStyles.Number,CultureInfo.CurrentCulture)-29;
 			this.Denominator=Math.Pow(BigUInteger.Ten,-exponential);
 			this.Trim();
@@ -101,7 +101,7 @@ namespace WS.Theia.ExtremelyPrecise {
 			this.Infinity=false;
 			var workAreaArrayy = value.ToString("E16",CultureInfo.CurrentCulture).Split(new string[] { "E" },StringSplitOptions.None);
 			var nfi = NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture);
-			this.Numerator=BigUInteger.Parse(workAreaArrayy[0].Replace(nfi.NumberDecimalSeparator,"").Replace(nfi.NegativeSign,""));
+			this.Numerator=BigUInteger.Parse(workAreaArrayy[0].Replace(nfi.NumberDecimalSeparator,string.Empty).Replace(nfi.NegativeSign,string.Empty));
 			var exponential = int.Parse(workAreaArrayy[1],NumberStyles.Number,CultureInfo.CurrentCulture)-16;
 			if(exponential>0) {
 				this.Numerator*=Math.Pow(BigUInteger.Ten,exponential);
@@ -186,7 +186,7 @@ namespace WS.Theia.ExtremelyPrecise {
 			this.Infinity=false;
 			var workAreaArrayy = value.ToString("E7",CultureInfo.CurrentCulture).Split(new string[] { "E" },StringSplitOptions.None);
 			var nfi = NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture);
-			this.Numerator=BigUInteger.Parse(workAreaArrayy[0].Replace(nfi.NumberDecimalSeparator,"").Replace(nfi.NegativeSign,""));
+			this.Numerator=BigUInteger.Parse(workAreaArrayy[0].Replace(nfi.NumberDecimalSeparator,string.Empty).Replace(nfi.NegativeSign,string.Empty));
 			var exponential = int.Parse(workAreaArrayy[1],NumberStyles.Number,CultureInfo.CurrentCulture)-7;
 			if(exponential>0) {
 				this.Numerator*=Math.Pow(BigUInteger.Ten,exponential);
@@ -636,7 +636,7 @@ namespace WS.Theia.ExtremelyPrecise {
 				var rationalOther = (Rational)other;
 				return this>rationalOther ? 1 : this==rationalOther ? 0 : -1;
 			} catch(Exception e) {
-				throw new ArgumentException("",e);
+				throw new ArgumentException(string.Empty,e);
 			}
 #else
 			if(other==null) {
@@ -646,7 +646,7 @@ namespace WS.Theia.ExtremelyPrecise {
 				return Compare(this,(Rational)other);
 			} catch(Exception e) {
 				//TODO:メッセージ何とかする
-				throw new ArgumentException("",e);
+				throw new ArgumentException(string.Empty,e);
 			}
 #endif
 		}

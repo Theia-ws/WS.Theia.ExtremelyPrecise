@@ -94,7 +94,7 @@ namespace WS.Theia.ExtremelyPrecise {
 					this.DecimalDigits=int.Parse(format.Substring(1),provider);
 				} catch(Exception ex) {
 					//TODO:メッセージ何とかする
-					throw new FormatException("",ex);
+					throw new FormatException(string.Empty,ex);
 				}
 			}
 

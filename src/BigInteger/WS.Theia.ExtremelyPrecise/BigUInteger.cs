@@ -442,7 +442,7 @@ namespace WS.Theia.ExtremelyPrecise {
 				var BigUIntegerOther = (BigUInteger)other;
 				return this>BigUIntegerOther ? 1 : this==BigUIntegerOther ? 0 : -1;
 			} catch(Exception e) {
-				throw new ArgumentException("",e);
+				throw new ArgumentException(string.Empty,e);
 			}
 #else
 			if(other==null) {
@@ -452,7 +452,7 @@ namespace WS.Theia.ExtremelyPrecise {
 				return Compare(this,(BigUInteger)other);
 			} catch(Exception e) {
 				//TODO:メッセージ何とかする
-				throw new ArgumentException("",e);
+				throw new ArgumentException(string.Empty,e);
 			}
 #endif
 		}
